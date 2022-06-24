@@ -1,0 +1,79 @@
+<?php
+
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\API\RegisterController;
+use App\Http\Controllers\API\EmployeeRegisterController;
+use App\Http\Controllers\API\SimpleRegisterController;
+use App\Http\Controllers\API\OptimizeRegisterController;
+use App\Http\Controllers\API\CategoryController; 
+use App\Http\Controllers\frontend\ServicesController;
+ 
+/*
+|--------------------------------------------------------------------------
+| API Routes
+|--------------------------------------------------------------------------
+|
+| Here is where you can register API routes for your application. These
+| routes are loaded by the RouteServiceProvider within a group which
+| is assigned the "api" middleware group. Enjoy building your API!
+|
+*/
+
+
+//WebView
+Route::post('/registerWeb', [RegisterController::class, 'register'])->name('registerWeb');
+Route::post('/loginWeb', [RegisterController::class, 'login'])->name('loginWeb');
+Route::post('/logoutWeb', [RegisterController::class, 'logout'])->name('logoutWeb');
+Route::post('/password/forgot-password', [RegisterController::class, 'ForgotPasswordlink'])->name('passwords.sent');
+Route::get('/password/reset-password/{token}', [RegisterController::class, 'ResetPassword'])->name('ResetPasswordGet');
+Route::post('/password/reset-password', [RegisterController::class, 'ResetPasswordStore'])->name('ResetPasswordPost');
+
+//EmployeeView
+Route::post('/employee/register', [EmployeeRegisterController::class, 'register'])->name('register.Employee');
+Route::post('/employee/login', [EmployeeRegisterController::class, 'login'])->name('login.Employee');
+
+Route::post('/employee/logout', [EmployeeRegisterController::class, 'logout'])->name('logout.Employee');
+Route::post('/employee/password/forgot-password', [EmployeeRegisterController::class, 'ForgotPasswordlink'])->name('Employee.passwords.sent');
+Route::get('/employee/password/reset-password/{token}', [EmployeeRegisterController::class, 'ResetPassword'])->name('Employee.ResetPasswordGet');
+// Route::any('/employee/request_otp', [EmployeeRegisterController::class, 'requestOtp'])->name('Employee.RequestOTP');
+// Route::post('/employee/verify_otp', [EmployeeRegisterController::class, 'verifyOtp'])->name('Employee.VerifyOTP');
+
+ 
+//SimpleView
+Route::post('/simpleview/register', [SimpleRegisterController::class, 'register'])->name('register.simpleview');
+Route::post('/simpleview/login', [SimpleRegisterController::class, 'login'])->name('login.simpleview');
+Route::post('/simpleview/logout', [SimpleRegisterController::class, 'logout'])->name('logout.simpleview');
+Route::post('/simpleview/password/forgot-password', [SimpleRegisterController::class, 'ForgotPasswordlink'])->name('.simpleview.passwords.sent');
+Route::get('/simpleview/password/reset-password/{token}', [SimpleRegisterController::class, 'ResetPassword'])->name('simpleview.ResetPasswordGet');
+Route::post('/simpleview/password/reset-password', [SimpleRegisterController::class, 'ResetPasswordStore'])->name('simpleview.ResetPasswordPost');
+
+//Optimizeview
+Route::post('/optimizeview/register', [OptimizeRegisterController::class, 'register'])->name('register.optimizeview');
+Route::post('/optimizeview/login', [OptimizeRegisterController::class, 'login'])->name('login.optimizeview');
+Route::post('/optimizeview/logout', [OptimizeRegisterController::class, 'logout'])->name('logout.optimizeview');
+
+Route::post('/optimizeview/password/forgot-password', [OptimizeRegisterController::class, 'ForgotPasswordlink'])->name('OptimizeView.passwords.sent');
+Route::get('/optimizeview/password/reset-password/{token}', [OptimizeRegisterController::class, 'ResetPassword'])->name('OptimizeView.ResetPasswordGet');
+Route::post('/optimizeview/password/reset-password', [OptimizeRegisterController::class, 'ResetPasswordStore'])->name('OptimizeView.ResetPasswordPost');
+
+//Category Routes
+Route::get('simpleview/category',[CategoryController::class,'index'])->name('category.index');
+Route::post('simpleview/category/create',[CategoryController::class,'create'])->name('category.create');
+Route::get('simpleview/category/edit/{id}',[CategoryController::class,'edit'])->name('category.edit');
+Route::post('simpleview/category/update/{id}',[CategoryController::class,'update'])->name('category.update');
+Route::delete('simpleview/category/delete/{id}',[CategoryController::class,'destroy'])->name('category.delete'); 
+Route::get('simpleview/services/get', [CategoryController::class,'get_simple_services'])->name('simple.services.show');
+
+//categorey optimize view
+Route::get('optimizeview/services/get', [CategoryController::class,'get_optimize_services'])->name('optimize.services.show');
+Route::post('optimize/remark/upload/image', [CategoryController::class, 'store_service_image']);
+Route::post('optimize/get/appointments', [CategoryController::class, 'get_appointments']);
+Route::post('optimize/get/past/appointments',[CategoryController::class,'get_past_appointments']);
+
+Route::post('optimize/get/single/appointment',[CategoryController::class,'get_single_appointments']);
+Route::post('optimize/quotation',[CategoryController::class,'get_quotation']);
+Route::post('optimize/scope/work',[CategoryController::class, 'get_scopes']);
+
+Route::get('optimize/profile/management',[CategoryController::class, 'profile_management']);
+Route::post('optimize/profile/update',[CategoryController::class, 'profile']);

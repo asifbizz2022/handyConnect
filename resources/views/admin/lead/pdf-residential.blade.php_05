@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type="text/css">
+        .header{
+            text-align: center;
+        }
+        table {
+            width: 100%;
+        }
+        .bottom {
+            width: 50%;
+            float: left;
+        }
+        .footer{
+            display: flex; justify-content: space-between;
+        }
+        .footer table {
+            text-align :left;
+        }
+        .footer table tr td {
+            margin-top:  3px;
+        }
+        table,p  {
+            font-size:  12px;
+            border-collapse: collapse;
+        }
+    </style>
+    <title>pdf</title>
+</head>
+<body>
+    <section class="header mb-10">
+        <!-- <img src="{{ $pdf_banner_img }}" width="110%" > -->
+    </section>
+    <br><br>
+   
+     
+    <section>
+        <h3>Interior Quotation</h3>
+        
+        <table>
+            <tr>
+                <td>Date :</td><td>{{$date}}</td><td></td><td><b>QUOTATION NO:</b></td><td><b>{{ $quotation_number}}</b></td>
+            </tr>
+            <tr>
+                <td>Name :</td><td>{{$customer_name}}</td><td></td><td>Co.Reg.No :</td><td>{{$co_reg_no}}</td>
+            </tr>
+            <tr>
+                <td>Address :</td><td>{{$company_address}}</td><td></td><td>Payment Terms :</td><td style="font-size:9px">15% UPON CONFIRMATION</td> 
+            </tr>
+            <tr>
+                <td>Postal Code :</td><td>{{$company_zip}}</td><td></td><td><b>_________________</b></td><td style="font-size:9px" >40% UPON COMMENCEMENT OF WORK</td> 
+            </tr>
+            <tr>
+                <td></td><td></td><td></td><td>I acknowledge the payment terms.</td><td style="font-size:9px">40% UPON MEASUREMENT OF CARPENTRY</td> 
+            </tr> 
+            <tr>
+                <td></td><td></td><td></td><td></td><td style="font-size:9px">5% UPON HANDOVER OF KEYS</td> 
+            </tr> 
+
+
+        </table>
+    </section>
+    <br>
+    <section>
+        <table border>
+            <thead>
+            <th>ITEM</th>
+            <th>WORK DESCRIPTION</th>
+            <th>AMOUNT</th>
+            </thead>
+            <tbody>
+           
+           
+            @foreach($list_of_work as $l)
+            @foreach($scope_of_work as $s)
+            @foreach(explode('-',$grand_total) as $t)
+           <tr>
+            <td>{{$l->work_name}}</td>
+            <td>{{$s->work_description}}</td>
+            <td>{{$t}}</td>
+            
+            </tr>
+            @endforeach
+            @endforeach
+            @endforeach
+            
+            <tr>
+                <td colspan="2" style="text-align:right;">
+                    Discount
+                </td>
+                <td> - {{ $discount }}</td>
+            </tr>
+            <tr>
+                <td colspan="2" style="text-align:right;">
+                    Total
+                </td>
+                <td>{{ $net_price }}</td>
+            </tr>
+            <tr>
+                <td colspan="2" style="text-align:right;">
+                    Grand Total
+                </td>
+                <td>{{ $final_grand_total }}</td>
+            </tr>
+        </tbody>
+        </table>
+    </section>
+    <section>
+    <table>
+       <tr><p>* Quotation is valid for 30 days from date of offer.  Items not stated in the quotation will be considered as variation orders.</p></tr>
+        <tr><p>* Payment mode for all progressive & final payments include: Cheque or Cashier's Order in favour of "<b> {{ $company_name}} </b>"
+        </p></tr>                     
+        <tr><p>* Other payment modes include: Inter-Bank Transfer to our OCBC Bank A/C No: "519-505093-001" or via PayNow to UEN No: "201811020M"</p></tr>
+        <tr><p>NOTE:  PLEASE REQUEST FOR GOODMAN CREATIVES' OFFICIAL RECEIPT AS PROOF OF PAYMENT.</p></tr> 
+    </table>                     
+    </section>
+    <br>
+    <section style="text-align: left;" class="footer">
+        <table   class="bottom">
+            <tr>
+                <td style='text-align: center; font-weight: bold;'> 
+                        Goodman Creatives Pte Ltd <br>
+                    <br>
+                </td>
+            </tr>
+            <tr>
+                <td><span>Name</span>:___________ 
+                 <span>Mobile</span>:___________</td>
+            </tr>
+            <tr style="font-size:10px">
+                <td>
+                Office / Showroom: 1 Pemimpin Drive #04-02 One Pemimpin Singapore 576151
+                <br>
+                Tel: 6734 1229  Fax: 6734 1132
+                </td>
+            </tr>
+            <tr>
+                 <td>Email ______________</td>
+            </tr>
+        </table> 
+        <table   class="bottom">
+            <tr>
+                <td style="text-align:center; font-weight: bold;">
+                    <span>Agreed & Accepted By</span>
+                    <br>
+                    <span>Customer's Name & Signature</span><br>
+                </td>
+            </tr>
+            <tr>
+                <td><span>Name</span>:___________ 
+                  <span>Mobile</span>:___________</td>
+            </tr>
+            <tr style="font-size:10px">
+                <td>
+                Find us on: https://goodmaninterior.com
+                <br>
+                Like us on: www.facebook.com/goodmaninterior
+                <br>
+                Follow us on Instagram: @goodmaninterior.sg
+                </td>
+            </tr>
+        </table> 
+    </section>
+</body>
+</html>
